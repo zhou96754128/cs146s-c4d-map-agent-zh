@@ -1,0 +1,61 @@
+{
+  "targets": [
+    {
+      "name": "OSM 底图瓦片",
+      "url": "https://tile.openstreetmap.org/0/0/0.png",
+      "ok": false,
+      "error": "URLError: <urlopen error timed out>",
+      "sec": 16.01
+    },
+    {
+      "name": "unpkg CDN（Leaflet）",
+      "url": "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+      "ok": false,
+      "error": "URLError: <urlopen error _ssl.c:993: The handshake operation timed out>",
+      "sec": 10.23
+    },
+    {
+      "name": "高德底图瓦片",
+      "url": "https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x=0&y=0&z=1",
+      "ok": true,
+      "status": 200,
+      "bytes": 179,
+      "sec": 0.15
+    },
+    {
+      "name": "高德底图瓦片(备用)",
+      "url": "https://webst01.is.autonavi.com/appmaptile?style=7&x=0&y=0&z=1",
+      "ok": true,
+      "status": 200,
+      "bytes": 10493,
+      "sec": 0.16
+    },
+    {
+      "name": "天地图瓦片",
+      "url": "https://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX=0&TILEROW=0&TILECOL=0",
+      "ok": false,
+      "error": "HTTPError: HTTP Error 418: ",
+      "sec": 1.21
+    },
+    {
+      "name": "Carto 底图瓦片",
+      "url": "https://a.basemaps.cartocdn.com/light_all/0/0/0.png",
+      "ok": false,
+      "error": "URLError: <urlopen error timed out>",
+      "sec": 16.04
+    },
+    {
+      "name": "GitHub（对照，已知可达）",
+      "url": "https://github.com/robots.txt",
+      "ok": true,
+      "status": 200,
+      "bytes": 16739,
+      "sec": 0.49
+    }
+  ],
+  "reachable": [
+    "高德底图瓦片",
+    "高德底图瓦片(备用)",
+    "GitHub（对照，已知可达）"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-10-09T14:21:25+0800",
+  "note": "本文件由记忆层从 places_events.jsonl 重放生成；标记数据源自模型工具调用，非人工预置。",
+  "count": 6,
+  "places": [
+    {
+      "name": "郑州西亚斯学院",
+      "lat": 34.527,
+      "lon": 113.745,
+      "category": "校园",
+      "note": "",
+      "added_by": "gemma4:e4b"
+    },
+    {
+      "name": "黄帝故里景区",
+      "lat": 34.396,
+      "lon": 113.741,
+      "category": "人文景点",
+      "note": "",
+      "added_by": "gemma4:e4b"
+    },
+    {
+      "name": "郑州新郑国际机场",
+      "lat": 34.5197,
+      "lon": 113.8408,
+      "category": "交通枢纽",
+      "note": "距西亚斯学院直线约 12 km。",
+      "added_by": "gemma4:e4b"
+    },
+    {
+      "name": "郑州东站",
+      "lat": 34.756,
+      "lon": 113.772,
+      "category": "交通枢纽",
+      "note": "郑州主城高铁枢纽。",
+      "added_by": "gemma4:e4b"
+    },
+    {
+      "name": "河南博物院",
+      "lat": 34.773,
+      "lon": 113.663,
+      "category": "人文景点",
+      "note": "郑州主城文化地标。",
+      "added_by": "gemma4:e4b"
+    },
+    {
+      "name": "二七广场",
+      "lat": 34.752,
+      "lon": 113.666,
+      "category": "商业地标",
+      "note": "郑州老城商业中心。",
+      "added_by": "gemma4:e4b"
+    }
+  ]
+}

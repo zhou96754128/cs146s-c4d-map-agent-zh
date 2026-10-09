@@ -1,0 +1,59 @@
+{
+  "host": "http://127.0.0.1:11434",
+  "model": "gemma4:e4b",
+  "ollama_version": "ollama version is 0.34.4",
+  "models": [
+    {
+      "name": "gemma4:e4b",
+      "digest": "dc35e8d9c606",
+      "size_bytes": 6583656505,
+      "quantization_level": "Q4_K_M",
+      "parameter_size": "7.5B",
+      "family": "gemma4"
+    },
+    {
+      "name": "qwen3:8b",
+      "digest": "500a1f067a9f",
+      "size_bytes": 5225388164,
+      "quantization_level": "Q4_K_M",
+      "parameter_size": "8.2B",
+      "family": "qwen3"
+    }
+  ],
+  "model_detail": {
+    "format": "gguf",
+    "family": "gemma4",
+    "parameter_size": "7.5B",
+    "quantization_level": "Q4_K_M",
+    "context_length": 131072,
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ]
+  },
+  "device": {
+    "os": "macOS-26.5-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpu": "arm",
+    "chip": "Apple M5 Pro",
+    "mem_bytes": 25769803776,
+    "macos": "26.5",
+    "model_identifier": "Hardware:\n\n    Hardware Overview:\n\n      Model Name: MacBook Pro\n      Model Identifier: Mac17,9\n      Model Number: MGDR4CH/A\n      Chip: Apple M5 Pro\n      Total Number of Cores: 15 (5 Super and 10 Performance)\n      Memory: 24 GB\n      System Firmware Version: 18000.120.36\n      OS Loader Version: 18000.120.36\n      Serial Number (system): FDVVT3DQR7\n      Hardware UUID: 9D237AB1-9498-5714-ABBD-087D743D2613\n      Provisioning UDID: 00006050-001831693A89401C\n      Activation Lock Status: Enabled"
+  },
+  "generate": {
+    "prompt": "用两句话介绍郑州西亚斯学院的所在地与办学定位。",
+    "response": "",
+    "eval_count": 160,
+    "eval_duration_ns": 2100737999,
+    "prompt_eval_count": 32,
+    "prompt_eval_duration_ns": 102262000,
+    "load_duration_ns": 2651599917,
+    "total_duration_ns": 4856293417,
+    "wall_sec": 4.86,
+    "tok_per_sec_eval": 76.16,
+    "tok_per_sec_prompt": 312.92
+  }
+}

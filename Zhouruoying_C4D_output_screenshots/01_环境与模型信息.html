@@ -1,0 +1,166 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<title>C4D 运行证据：本机 Gemma 4 + Ollama</title>
+<style>
+ body{font-family:-apple-system,"PingFang SC",Helvetica,Arial,sans-serif;margin:0;padding:26px 34px;background:#0b1020;color:#e6ecff}
+ h1{font-size:23px;margin:0 0 4px} .sub{color:#8fa3c8;font-size:13px;margin-bottom:18px}
+ table{border-collapse:collapse;width:100%;margin:6px 0 18px;font-size:14px}
+ th,td{border-bottom:1px solid #22304d;padding:6px 10px;text-align:left;vertical-align:top}
+ th{color:#9db2d8;font-weight:600;width:170px}
+ .big{font-size:34px;font-weight:700;color:#5ee6a8}
+ .row{display:flex;gap:26px;margin:12px 0 6px}
+ .card{background:#141c33;border:1px solid #22304d;border-radius:10px;padding:12px 16px;flex:1}
+ .turn{background:#141c33;border:1px solid #22304d;border-radius:8px;padding:8px 12px;margin:8px 0;font-size:13px}
+ pre{margin:6px 0 0;color:#9db2d8;font-size:12px;white-space:pre-wrap}
+ .k{color:#9db2d8;font-size:12px}
+</style></head><body>
+<h1>C4D 运行证据：完全本地的 Gemma 4 Agent</h1>
+<div class="sub">数据来源：本机 Ollama 实时探针（logs/probe_speed.json）+ Agent 会话日志（logs/session_summary.json），无云端 API 参与</div>
+<div class="row">
+  <div class="card"><div class="k">实测出词速度</div><div class="big">76.16 tok/s</div></div>
+  <div class="card"><div class="k">运行模型</div><div class="big" style="font-size:24px">gemma4:e4b</div><div class="k">Q4_K_M · 7.5B · 本地推理</div></div>
+  <div class="card"><div class="k">运行工具</div><div class="big" style="font-size:24px">Ollama 0.34.4</div><div class="k">http://127.0.0.1:11434</div></div>
+</div>
+<table><tr><th>操作系统</th><td>macOS-26.5-arm64-arm-64bit  (macOS 26.5)</td></tr><tr><th>机型</th><td>MacBook Pro — Model Identifier Mac17,9</td></tr><tr><th>芯片 / CPU</th><td>Apple M5 Pro</td></tr><tr><th>统一内存</th><td>24 GB</td></tr><tr><th>推理运行时</th><td>Ollama v0.34.4</td></tr><tr><th>模型</th><td>gemma4:e4b（7.5B / Q4_K_M / gguf）</td></tr><tr><th>上下文长度</th><td>131072</td></tr><tr><th>模型能力</th><td>completion, vision, audio, tools, thinking</td></tr><tr><th>实测出词速度</th><td>76.16 tok/s</td></tr><tr><th>实测提示词处理</th><td>312.92 tok/s</td></tr><tr><th>端点</th><td>http://127.0.0.1:11434</td></tr></table>
+<h2 style="font-size:16px;margin:6px 0">Agent 会话（session_summary.json）</h2>
+<div class="k">verdict=GREEN｜places=6｜events=19｜render_tool_calls=1｜render_fallback=False</div>
+<div class='turn'><b>第 1 轮</b> status=done｜工具=get_place, get_place, add_place, add_place｜点数=2｜nudged=?<pre>{
+ &quot;status&quot;: &quot;done&quot;,
+ &quot;model&quot;: &quot;gemma4:e4b&quot;,
+ &quot;steps_used&quot;: 4,
+ &quot;tool_calls&quot;: [
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;get_place&quot;,
+   &quot;args&quot;: {
+    &quot;name&quot;: &quot;郑州西亚斯学院&quot;
+   },
+   &quot;ok&quot;: true
+  },
+  {
+   &quot;step&quot;: 2,
+   &quot;tool&quot;: &quot;get_place&quot;,
+   &quot;args&quot;: {
+    &quot;name&quot;: &quot;黄帝故里景区&quot;
+   },
+   &quot;ok&quot;: true
+  },
+  {
+   &quot;step&quot;: 3,
+   &quot;tool&quot;: &quot;add_place&quot;,
+   &quot;args&quot;: {
+    &quot;category&quot;: &quot;校园&quot;,
+    &quot;lat&quot;: 34.527,
+    &quot;lon&quot;: 113.745,
+    &quot;name&quot;: &quot;郑州西亚斯学院&quot;
+   },
+   &quot;ok&quot;: true
+  },
+  {
+   &quot;step&quot;: 3,
+   &quot;tool&quot;: &quot;add_place&quot;,
+   &quot;args&quot;: {
+    &quot;category&quot;: &quot;人文景点&quot;,
+    &</pre></div><div class='turn'><b>第 2 轮</b> status=done｜工具=add_place_from_index, add_place_from_index, add_place_from_index, add_place_from_index｜点数=6｜nudged=?<pre>{
+ &quot;status&quot;: &quot;done&quot;,
+ &quot;model&quot;: &quot;gemma4:e4b&quot;,
+ &quot;steps_used&quot;: 4,
+ &quot;tool_calls&quot;: [
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;add_place_from_index&quot;,
+   &quot;args&quot;: {
+    &quot;category&quot;: &quot;交通枢纽&quot;,
+    &quot;name&quot;: &quot;郑州新郑国际机场&quot;
+   },
+   &quot;ok&quot;: true
+  },
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;add_place_from_index&quot;,
+   &quot;args&quot;: {
+    &quot;category&quot;: &quot;交通枢纽&quot;,
+    &quot;name&quot;: &quot;郑州东站&quot;
+   },
+   &quot;ok&quot;: true
+  },
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;add_place_from_index&quot;,
+   &quot;args&quot;: {
+    &quot;category&quot;: &quot;博物馆&quot;,
+    &quot;name&quot;: &quot;河南博物院&quot;
+   },
+   &quot;ok&quot;: true
+  },
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;add_place_from_index&quot;,
+ </pre></div><div class='turn'><b>第 3 轮</b> status=done｜工具=update_place｜点数=6｜nudged=?<pre>{
+ &quot;status&quot;: &quot;done&quot;,
+ &quot;model&quot;: &quot;gemma4:e4b&quot;,
+ &quot;steps_used&quot;: 1,
+ &quot;tool_calls&quot;: [
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;update_place&quot;,
+   &quot;args&quot;: {
+    &quot;category&quot;: &quot;人文景点&quot;,
+    &quot;name&quot;: &quot;河南博物院&quot;
+   },
+   &quot;ok&quot;: true
+  }
+ ],
+ &quot;final&quot;: &quot;我已经将“河南博物院”的分类改成了“人文景点”。&quot;,
+ &quot;places&quot;: 6,
+ &quot;facts&quot;: 0,
+ &quot;events&quot;: 16,
+ &quot;root&quot;: &quot;&lt;项目根目录&gt;/memory&quot;,
+ &quot;task&quot;: &quot;河南博物院其实更适合归到人文景点，帮我把它的分类改过来。&quot;,
+ &quot;turn&quot;: 3,
+ &quot;elapsed_sec&quot;: 3.36
+}</pre></div><div class='turn'><b>第 4 轮</b> status=done｜工具=remember_fact｜点数=6｜nudged=?<pre>{
+ &quot;status&quot;: &quot;done&quot;,
+ &quot;model&quot;: &quot;gemma4:e4b&quot;,
+ &quot;steps_used&quot;: 1,
+ &quot;tool_calls&quot;: [
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;remember_fact&quot;,
+   &quot;args&quot;: {
+    &quot;text&quot;: &quot;我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场。&quot;
+   },
+   &quot;ok&quot;: true
+  }
+ ],
+ &quot;final&quot;: &quot;我已经记住了：“我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场。”&quot;,
+ &quot;places&quot;: 6,
+ &quot;facts&quot;: 1,
+ &quot;events&quot;: 18,
+ &quot;root&quot;: &quot;&lt;项目根目录&gt;/memory&quot;,
+ &quot;task&quot;: &quot;记住一句话：我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场。&quot;,
+ &quot;turn&quot;: 4,
+ &quot;elapsed_sec&quot;: 2.43
+}</pre></div><div class='turn'><b>第 5 轮</b> status=done｜工具=render_map｜点数=6｜nudged=?<pre>{
+ &quot;status&quot;: &quot;done&quot;,
+ &quot;model&quot;: &quot;gemma4:e4b&quot;,
+ &quot;steps_used&quot;: 1,
+ &quot;tool_calls&quot;: [
+  {
+   &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;render_map&quot;,
+   &quot;args&quot;: {
+    &quot;title&quot;: &quot;我的郑州足迹（本地大模型 Agent 生成）&quot;
+   },
+   &quot;ok&quot;: true
+  }
+ ],
+ &quot;final&quot;: &quot;地图已成功渲染，文件名为 `Zhouruoying_C4D_郑州足迹地图.html`，其中包含 6 个标记。&quot;,
+ &quot;places&quot;: 6,
+ &quot;facts&quot;: 1,
+ &quot;events&quot;: 19,
+ &quot;root&quot;: &quot;&lt;项目根目录&gt;/memory&quot;,
+ &quot;task&quot;: &quot;把地图渲染出来，标题用「我的郑州足迹（本地大模型 Agent 生成）」。&quot;,
+ &quot;turn&quot;: 5,
+ &quot;elapsed_sec&quot;: 6.9
+}</pre></div>
+</body></html>

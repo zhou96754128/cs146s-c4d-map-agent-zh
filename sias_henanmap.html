@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>郑州西亚斯学院与河南博物院</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  html,body{margin:0;height:100%;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  #app{display:flex;height:100%}
+  #panel{width:310px;min-width:310px;overflow:auto;background:#0f172a;color:#e2e8f0;padding:16px 14px;box-sizing:border-box}
+  #panel h1{font-size:15px;margin:0 0 4px;line-height:1.4}
+  #panel .meta{font-size:11px;color:#94a3b8;line-height:1.7;margin-bottom:10px}
+  #panel .badge{display:inline-block;background:#1e293b;border:1px solid #334155;border-radius:999px;padding:1px 8px;margin:1px 3px 1px 0;font-size:11px}
+  .item{display:flex;gap:8px;padding:7px 8px;border-radius:8px;cursor:pointer;align-items:flex-start}
+  .item:hover{background:#1e293b}
+  .dot{width:10px;height:10px;border-radius:50%;margin-top:4px;flex:0 0 auto}
+  .nm{font-size:12.5px;line-height:1.35}
+  .sub{font-size:11px;color:#94a3b8;margin-top:2px}
+  #map{flex:1}
+  .leaflet-popup-content{font-size:12.5px;line-height:1.6}
+  .leaflet-popup-content b{font-size:13.5px}
+  #foot{font-size:10.5px;color:#64748b;margin-top:12px;border-top:1px solid #1e293b;padding-top:8px;line-height:1.6}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="panel">
+    <h1>郑州西亚斯学院与河南博物院</h1>
+    <div class="meta">
+      标记 <b>2</b> 个 · 生成于 2026-10-08 19:54:34<br />
+      数据来源：本地大模型工具调用（memory/places_events.jsonl）
+    </div>
+    <div id="cats"><span class="badge"><span class="dot" style="display:inline-block;background:#6b7280"></span> 教育 1</span><span class="badge"><span class="dot" style="display:inline-block;background:#6b7280"></span> 文化 1</span></div>
+    <div id="list"><div class="item" data-name="郑州西亚斯学院"><span class="dot" style="background:#6b7280"></span><span><span class="nm">郑州西亚斯学院</span><div class="sub">教育 · 34.527, 113.745</div></span></div><div class="item" data-name="河南博物院"><span class="dot" style="background:#6b7280"></span><span><span class="nm">河南博物院</span><div class="sub">文化 · 34.773, 113.663</div></span></div></div>
+    <div id="foot">滚轮缩放 · 拖拽平移 · 点击标记看详情 · 点侧栏条目定位</div>
+  </div>
+  <div id="map"></div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var PLACES = [{"name": "郑州西亚斯学院", "lat": 34.527, "lon": 113.745, "category": "教育", "note": "中外合作办学高校", "added_by": "qwen3:8b", "color": "#6b7280"}, {"name": "河南博物院", "lat": 34.773, "lon": 113.663, "category": "文化", "note": "河南省重点文物保护单位", "added_by": "qwen3:8b", "color": "#6b7280"}];
+  var CENTER = [34.41000, 113.62000];
+  var ZOOM = 11;
+  var map = L.map('map').setView(CENTER, ZOOM);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+  L.control.scale({imperial:false}).addTo(map);
+  var markers = {};
+  function popupHtml(p){
+    var s = '<b>' + p.name + '</b><br/>分类：' + p.category;
+    if (p.note) s += '<br/>备注：' + p.note;
+    s += '<br/>坐标：' + p.lat + ', ' + p.lon;
+    if (p.added_by) s += '<br/><span style="color:#64748b">由 ' + p.added_by + ' 写入</span>';
+    return s;
+  }
+  function addMarker(p){
+    var m = L.circleMarker([p.lat, p.lon], {
+      radius: 8, color: '#ffffff', weight: 2, fillColor: p.color, fillOpacity: 0.95
+    }).addTo(map);
+    m.bindPopup(popupHtml(p));
+    markers[p.name] = m;
+  }
+  PLACES.forEach(addMarker);
+  if (PLACES.length > 1) {
+    map.fitBounds(PLACES.map(function(p){ return [p.lat, p.lon]; }), {padding:[40,40]});
+  }
+  document.querySelectorAll('.item').forEach(function(el){
+    el.addEventListener('click', function(){
+      var m = markers[el.getAttribute('data-name')];
+      if (m) { map.setView(m.getLatLng(), 15); m.openPopup(); }
+    });
+  });
+  window.__mapAgentReady = true;
+</script>
+</body>
+</html>
