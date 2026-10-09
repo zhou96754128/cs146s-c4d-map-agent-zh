@@ -32,7 +32,12 @@ python3 scripts/selfcheck.py                          # 2. 结构自检 22/22 PA
 python3 scripts/run_agent.py --model gemma4:e4b       # 3. 端到端 demo → verdict=GREEN
 python3 _build/png_stats.py Zhouruoying_C4D_output_screenshots/02_地图渲染结果.png
 python3 _build/png_where.py Zhouruoying_C4D_output_screenshots/02_地图渲染结果.png
+python3 _build/demo_record.py --no-agent              # 4. 录屏用：一条命令打印环境信息 + 实测 tok/s
+python3 _build/demo_record.py                         # 5. 录屏用（完整体验）：环境 + 测速 + 跑 Agent + 打开地图
 ```
+
+> **演示录屏**：挑战正文要求截图/录屏中清晰显示「模型名称版本 / 运行工具 / 设备信息 / 实测 tok/s」四项。
+> `_build/demo_record.py` 把这四项按顺序打满一屏，配合 `scripts/run_agent.py` 再录一遍端到端过程即可。
 
 ## 三、目录结构
 
@@ -50,7 +55,7 @@ Zhouruoying_C4D_map-agent/
 ├── vendor/                   # 内联 Leaflet 1.9.4（不依赖 CDN）
 ├── memory/                   # places.json + places_events.jsonl
 ├── logs/                     # session_summary.json / probe_net.json / probe_speed.json / run_log.jsonl
-├── _build/                   # 验证与取证脚本（status / probe / png_*）
+├── _build/                   # 验证与取证脚本（status / probe / png_* / demo_record）
 └── Zhouruoying_C4D_output_screenshots/   # 01 环境与模型信息 / 02 地图渲染结果
 ```
 
