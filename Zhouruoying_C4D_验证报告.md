@@ -8,8 +8,8 @@
 | 判据 | 结果 |
 | --- | --- |
 | 结构自检（22 项断言，含 6 项负向） | **22/22 PASS**，`VERDICT: GREEN`，`rc=0` |
-| 端到端多轮 demo（`gemma4:e4b`，5 轮自然语言） | **`verdict=GREEN`**，`rc=0`，27.88 s |
-| 数据落地 | `places=6` / `facts=1` / `events=19`（仅追加事件流） |
+| 端到端多轮 demo（`gemma4:e4b`，5 轮自然语言） | **`verdict=GREEN`**，`rc=0`，34.19 s |
+| 数据落地 | `places=6` / `facts=3` / `events=56`（仅追加事件流） |
 | 渲染是否真的由模型发起 | `render_tool_calls=1`、**`render_fallback=false`**（未走兜底提醒） |
 | 产物是否可独立打开 | 地图 **170,272 B**，`FITBOUNDS`/`circleMarker`/`data-name` 齐备，**零外部脚本与链接标签** |
 | 截图是否真渲染（不是白屏/灰底） | **0/20 房格**为 Leaflet 默认灰底，**18/20 房格**颜色丰富；分类调色板命中 **1,767 像素** |
@@ -65,11 +65,11 @@ python3 scripts/run_agent.py --model gemma4:e4b # 5 轮 demo → verdict=GREEN, 
 
 | 轮 | 用户原话（节选） | 模型实际调用（按发生顺序） | 结果 |
 | --- | --- | --- | --- |
-| 1 | 标出「郑州西亚斯学院」「黄帝故里景区」，按校园/人文景点分类 | `get_place` ×2 → `add_place` ×2 | places=2，9.58 s |
-| 2 | 再标出机场、郑州东站、河南博物院、二七广场 | `add_place_from_index` ×4（并行） | places=6，6.21 s |
-| 3 | 河南博物院改归人文景点 | `update_place` | places=6，3.36 s |
-| 4 | 记住「周末常去西亚斯、河南博物院、二七广场」 | `remember_fact` | facts=1，2.43 s |
-| 5 | 渲染地图，标题「我的郑州足迹」 | `render_map`（**未被兜底提醒**） | places=6，6.90 s |
+| 1 | 标出「郑州西亚斯学院」「黄帝故里景区」，按校园/人文景点分类 | `get_place` ×2 → `add_place` ×2 | places=2，9.26 s |
+| 2 | 再标出机场、郑州东站、河南博物院、二七广场 | `add_place_from_index` ×4（并行） | places=6，5.29 s |
+| 3 | 河南博物院改归人文景点 | `update_place` | places=6，3.55 s |
+| 4 | 记住「周末常去西亚斯、河南博物院、二七广场」 | `remember_fact` | facts=3，3.62 s |
+| 5 | 渲染地图，标题「我的郑州足迹」 | `render_map`（**未被兜底提醒**） | places=6，12.47 s |
 
 **三个关键点**
 1. **坐标不是模型编的**：第 1 轮先 `get_place` 查出 34.527/113.745 与 34.396/113.741，再 `add_place` 写入，与本地索引**逐位一致**。
@@ -143,7 +143,7 @@ python3 _build/png_where.py Zhouruoying_C4D_output_screenshots/02_地图渲染�
 
 ## 十一、未被验证 / 明确限制（如实声明）
 
-1. **无真人操作录屏**：截图由 Edge headless 生成，脚本等待 `window.__mapAgentReady === true` 后落盘；`err01.txt` / `err02.txt` 保留了失败尝试的原始错误，未删除。
+1. **截图与演示视频均非真人操作录制**：两张截图由 Edge headless 生成（脚本等待 `window.__mapAgentReady === true` 后落盘；`err01.txt` / `err02.txt` 保留失败尝试的原始错误未删除）；演示视频 `Zhouruoying_C4D_output_screenshots/Zhouruoying_C4D_demo视频.mp4`（1600×900 / 58.00 s / 30 fps / 23.14 MB / 无音轨 / sha256 `675467336007c5807ff1690e92467931b0d5d8a1d8abcb72a182ed8beeae4b35`）由本项目自研渲染脚本依据**本次真实运行的日志与产物**逐帧合成：`make_slides.py` 读取 `logs/session_summary.json` 与 `logs/probe_speed.json` 生成 7 帧讲解幻灯片，`make_video.swift`（AVFoundation，H.264）把帧序列编码成 mp4。**它不是真人屏幕录制**——画面中出现的每一个数字（模型/量化/工具/设备/76.16 tok/s/事件数/每轮耗时/GREEN 判定）都能在上述日志与本报告中逐条核对，不存在只存在于视频里的数据；两个渲染脚本属本机开发工具（项目侧 `_vidprobe/`），未随仓库发布，仓库内是它们的**输入**（`logs/`）与**输出**（视频 + 截图）。
 2. **未做「未审查变体」对比**：挑战把「对比 Gemma 4 与去审查变体」列为**加分项**，本次未做（本机未安装相应变体），因此不在本报告中主张。
 3. **速度数字有机器依赖性**：76.16 tok/s 是 **M5 Pro / 24 GB / Q4_K_M** 的实测值，换机换量化会变。
 4. **单次运行**：本报告给出的是**一次完整端到端运行**的实录，未做多种子重复性统计（生成式 Agent 的输出不保证逐字复现；可复现的是**流程与校验**，不是模型的每一句话）。

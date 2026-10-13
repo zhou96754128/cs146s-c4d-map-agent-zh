@@ -22,8 +22,8 @@
 </div>
 <table><tr><th>操作系统</th><td>macOS-26.5-arm64-arm-64bit  (macOS 26.5)</td></tr><tr><th>机型</th><td>MacBook Pro — Model Identifier Mac17,9</td></tr><tr><th>芯片 / CPU</th><td>Apple M5 Pro</td></tr><tr><th>统一内存</th><td>24 GB</td></tr><tr><th>推理运行时</th><td>Ollama v0.34.4</td></tr><tr><th>模型</th><td>gemma4:e4b（7.5B / Q4_K_M / gguf）</td></tr><tr><th>上下文长度</th><td>131072</td></tr><tr><th>模型能力</th><td>completion, vision, audio, tools, thinking</td></tr><tr><th>实测出词速度</th><td>76.16 tok/s</td></tr><tr><th>实测提示词处理</th><td>312.92 tok/s</td></tr><tr><th>端点</th><td>http://127.0.0.1:11434</td></tr></table>
 <h2 style="font-size:16px;margin:6px 0">Agent 会话（session_summary.json）</h2>
-<div class="k">verdict=GREEN｜places=6｜events=19｜render_tool_calls=1｜render_fallback=False</div>
-<div class='turn'><b>第 1 轮</b> status=done｜工具=get_place, get_place, add_place, add_place｜点数=2｜nudged=?<pre>{
+<div class="k">verdict=GREEN｜places=6｜events=56｜render_tool_calls=1｜render_fallback=False</div>
+<div class='turn'><b>第 1 轮</b> status=done｜工具=get_place, get_place, add_place, add_place｜点数=6｜nudged=?<pre>{
  &quot;status&quot;: &quot;done&quot;,
  &quot;model&quot;: &quot;gemma4:e4b&quot;,
  &quot;steps_used&quot;: 4,
@@ -112,12 +112,12 @@
  ],
  &quot;final&quot;: &quot;我已经将“河南博物院”的分类改成了“人文景点”。&quot;,
  &quot;places&quot;: 6,
- &quot;facts&quot;: 0,
- &quot;events&quot;: 16,
- &quot;root&quot;: &quot;&lt;项目根目录&gt;/memory&quot;,
+ &quot;facts&quot;: 2,
+ &quot;events&quot;: 52,
+ &quot;root&quot;: &quot;<项目根目录>/memory&quot;,
  &quot;task&quot;: &quot;河南博物院其实更适合归到人文景点，帮我把它的分类改过来。&quot;,
  &quot;turn&quot;: 3,
- &quot;elapsed_sec&quot;: 3.36
+ &quot;elapsed_sec&quot;: 3.55
 }</pre></div><div class='turn'><b>第 4 轮</b> status=done｜工具=remember_fact｜点数=6｜nudged=?<pre>{
  &quot;status&quot;: &quot;done&quot;,
  &quot;model&quot;: &quot;gemma4:e4b&quot;,
@@ -132,21 +132,27 @@
    &quot;ok&quot;: true
   }
  ],
- &quot;final&quot;: &quot;我已经记住了：“我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场。”&quot;,
+ &quot;final&quot;: &quot;我已经将“我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场”这句话记在了我的记忆中。&quot;,
  &quot;places&quot;: 6,
- &quot;facts&quot;: 1,
- &quot;events&quot;: 18,
- &quot;root&quot;: &quot;&lt;项目根目录&gt;/memory&quot;,
+ &quot;facts&quot;: 3,
+ &quot;events&quot;: 54,
+ &quot;root&quot;: &quot;<项目根目录>/memory&quot;,
  &quot;task&quot;: &quot;记住一句话：我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场。&quot;,
  &quot;turn&quot;: 4,
- &quot;elapsed_sec&quot;: 2.43
-}</pre></div><div class='turn'><b>第 5 轮</b> status=done｜工具=render_map｜点数=6｜nudged=?<pre>{
+ &quot;elapsed_sec&quot;: 3.62
+}</pre></div><div class='turn'><b>第 5 轮</b> status=done｜工具=list_places, render_map｜点数=6｜nudged=?<pre>{
  &quot;status&quot;: &quot;done&quot;,
  &quot;model&quot;: &quot;gemma4:e4b&quot;,
- &quot;steps_used&quot;: 1,
+ &quot;steps_used&quot;: 2,
  &quot;tool_calls&quot;: [
   {
    &quot;step&quot;: 1,
+   &quot;tool&quot;: &quot;list_places&quot;,
+   &quot;args&quot;: {},
+   &quot;ok&quot;: true
+  },
+  {
+   &quot;step&quot;: 2,
    &quot;tool&quot;: &quot;render_map&quot;,
    &quot;args&quot;: {
     &quot;title&quot;: &quot;我的郑州足迹（本地大模型 Agent 生成）&quot;
@@ -154,13 +160,13 @@
    &quot;ok&quot;: true
   }
  ],
- &quot;final&quot;: &quot;地图已成功渲染，文件名为 `Zhouruoying_C4D_郑州足迹地图.html`，其中包含 6 个标记。&quot;,
+ &quot;final&quot;: &quot;地图已成功渲染，并保存为 `Zhouruoying_C4D_郑州足迹地图.html`。您可以在本地打开该文件查看您的郑州足迹。&quot;,
  &quot;places&quot;: 6,
- &quot;facts&quot;: 1,
- &quot;events&quot;: 19,
- &quot;root&quot;: &quot;&lt;项目根目录&gt;/memory&quot;,
+ &quot;facts&quot;: 3,
+ &quot;events&quot;: 56,
+ &quot;root&quot;: &quot;<项目根目录>/memory&quot;,
  &quot;task&quot;: &quot;把地图渲染出来，标题用「我的郑州足迹（本地大模型 Agent 生成）」。&quot;,
  &quot;turn&quot;: 5,
- &quot;elapsed_sec&quot;: 6.9
+ &quot;elapsed_sec&quot;: 12.47
 }</pre></div>
 </body></html>

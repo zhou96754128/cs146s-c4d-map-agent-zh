@@ -21,7 +21,7 @@
 
 ### 2. Agent 能力展示（25）
 
-- **功能调用真实发生**：那一轮 demo 里 `places=6`、`facts=1`、`events=19`，每条工具调用都在 `memory/places_events.jsonl` 留痕。
+- **功能调用真实发生**：那一轮 demo 里 `places=6`、`facts=3`、`events=56`，每条工具调用都在 `memory/places_events.jsonl` 留痕。
 - **渲染由模型自己发起**：`render_tool_calls=1`、`render_fallback=false`（第 5 轮它自己调了 `render_map`，未被兜底逻辑接管）。
 - **坐标不由模型编**：`gazetteer.py` 提供唯一的「名称→经纬度」映射；第 1 轮 `get_place` 取到 `34.527/113.745` 后 `add_place` 写入，两者逐位一致。
 - **结构自检 22 项全过**（含 6 项负向），`VERDICT: GREEN`、`rc=0`。

@@ -65,7 +65,7 @@ Zhouruoying_C4D_map-agent/
 | --- | --- |
 | 结构自检 | **22/22 PASS**，`VERDICT: GREEN`，`rc=0` |
 | 端到端 demo | **`verdict=GREEN`**，`rc=0`，5 轮自然语言 |
-| 数据落地 | `places=6` / `facts=1` / `events=19` |
+| 数据落地 | `places=6` / `facts=3` / `events=56` |
 | 渲染由模型发起 | `render_tool_calls=1`、`render_fallback=false` |
 | 地图产物 | **170,272 B**，零外部 `<script>`/`<link>`，6 个标记 |
 | 截图取证 | 0/20 房格为默认灰底；分类调色板命中 1,767 像素 |

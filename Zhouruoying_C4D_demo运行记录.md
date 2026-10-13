@@ -29,7 +29,7 @@ python3 scripts/run_agent.py --offline-check
 
 # ② 端到端多轮 demo（5 轮自然语言任务，模型自行决定调哪些工具）
 python3 scripts/run_agent.py --model gemma4:e4b
-#   → verdict=GREEN，rc=0，耗时 27.88 s（2026-10-09 14:04:48 → 14:05:16）
+#   → verdict=GREEN，rc=0，耗时 34.19 s（2026-10-09 14:20:53 → 14:21:27）
 
 # ③ 自检（22 项断言，用假模型注入工具调用，不需要启动 Ollama）
 python3 scripts/selfcheck.py
@@ -38,15 +38,15 @@ python3 scripts/selfcheck.py
 
 ## 三、逐轮真实证据（摘自 `logs/session_summary.json`）
 
-模型：`gemma4:e4b`　｜　`turns=5, places=6, facts=1, events=19`　｜　`render_tool_calls=1, render_fallback=false`　｜　`verdict=GREEN`
+模型：`gemma4:e4b`　｜　`turns=5, places=6, facts=3, events=56`　｜　`render_tool_calls=1, render_fallback=false`　｜　`verdict=GREEN`
 
 | 轮 | 用户原话（节选） | 模型实际调用的工具（按发生顺序） | 结果 |
 | --- | --- | --- | --- |
-| 1 | 把「郑州西亚斯学院」和「黄帝故里景区」标到地图上，分别按校园和人文景点分类 | `get_place` → `get_place` → `add_place`×2（`steps_used=4`） | places=2，9.58 s |
-| 2 | 再标出「郑州新郑国际机场」「郑州东站」「河南博物院」「二七广场」，分类依次是交通枢纽、交通枢纽、博物馆、商业地标 | `add_place_from_index`×4（一步并行，`steps_used=4`） | places=6，6.21 s |
-| 3 | 河南博物院其实更适合归到人文景点，帮我把它的分类改过来 | `update_place`（`steps_used=1`） | places=6，3.36 s |
-| 4 | 记住一句话：我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场 | `remember_fact`（`steps_used=1`） | facts=1，2.43 s |
-| 5 | 把地图渲染出来，标题用「我的郑州足迹（本地大模型 Agent 生成）」 | `render_map`（`steps_used=1`，**未被 nudge**） | places=6，6.90 s |
+| 1 | 把「郑州西亚斯学院」和「黄帝故里景区」标到地图上，分别按校园和人文景点分类 | `get_place` → `get_place` → `add_place`×2（`steps_used=4`） | places=2，9.26 s |
+| 2 | 再标出「郑州新郑国际机场」「郑州东站」「河南博物院」「二七广场」，分类依次是交通枢纽、交通枢纽、博物馆、商业地标 | `add_place_from_index`×4（一步并行，`steps_used=4`） | places=6，5.29 s |
+| 3 | 河南博物院其实更适合归到人文景点，帮我把它的分类改过来 | `update_place`（`steps_used=1`） | places=6，3.55 s |
+| 4 | 记住一句话：我周末常去的地方是郑州西亚斯学院、河南博物院和二七广场 | `remember_fact`（`steps_used=1`） | facts=3，3.62 s |
+| 5 | 把地图渲染出来，标题用「我的郑州足迹（本地大模型 Agent 生成）」 | `render_map`（`steps_used=1`，**未被 nudge**） | places=6，12.47 s |
 
 **这条证据链要说明的三件事**
 1. **坐标不是模型编的**：第 1 轮模型先 `get_place` 查索引，拿到 34.527/113.745 与 34.396/113.741 后才 `add_place` 写入——写入的经纬度与本地索引**逐位一致**。
@@ -62,7 +62,7 @@ python3 scripts/selfcheck.py
 | `Zhouruoying_C4D_output_screenshots/01_环境与模型信息.png` | 环境 + 模型 + tok/s 证据页截图 |
 | `Zhouruoying_C4D_output_screenshots/02_地图渲染结果.png` | 地图页渲染截图（Edge headless，**605,226 B / 1500×1000 / sha256 前缀 `65c89a9277f78015`**）。像素取证（`_build/png_where.py`）：切 20 个房格，**0 格**是 Leaflet 默认灰底、**18 格**颜色丰富；分类调色板命中 **1,767 像素**（校园 262 / 交通枢纽 452 / 人文景点 449 / 商业地标 265）——瓦片与标记都真渲染了 |
 | `logs/session_summary.json` / `logs/run_log.jsonl` | 逐轮结构化日志（本文件的数字来源） |
-| `memory/places_events.jsonl` | **仅追加**的事件流，19 条，每条带模型名与时间戳；`memory/places.json` 由它重放生成 |
+| `memory/places_events.jsonl` | **仅追加**的事件流，56 条，每条带模型名与时间戳；`memory/places.json` 由它重放生成 |
 
 ## 五、如实记录的偏差
 
